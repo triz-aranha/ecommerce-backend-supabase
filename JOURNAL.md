@@ -7,6 +7,8 @@
 
 ### Problemas/Impedimentos
 - O supabase não executou seu comando da forma devida inicialmente, “Installing Supabase CLI as a global module is not supported.” 
+- Ao fazer as policys, percebi que se manter a tabela pedidos como está, terei problemas em armanezar mais de um item por pedido, então criarei um outra tabela só para os itens do pedido.
+
 
 ### Decisões tomadas
 - Utilizar o Supabase CLI facilita na hora de executar os commits no github, além de ser mais prático para manejar as tabelas.
