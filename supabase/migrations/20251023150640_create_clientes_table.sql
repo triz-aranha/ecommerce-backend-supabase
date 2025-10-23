@@ -1,3 +1,4 @@
+-- Cria a tabela clientes
 create table if not exists clientes (
     id bigserial primary key,
     nome text not null,
