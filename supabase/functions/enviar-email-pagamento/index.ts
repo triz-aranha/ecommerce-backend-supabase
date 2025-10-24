@@ -1,48 +1,36 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
+import { serve } from "https://deno.land/x/sift@0.5.0/mod.ts";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabase = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+);
+
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
 
 serve(async (req) => {
-  try {
-    const { email, nome, pedido_id, valor } = await req.json();
+  const { pedidoId } = await req.json();
+  if (!pedidoId) return new Response("pedidoId não informado", { status: 400 });
 
-    if (!email || !pedido_id || !valor) {
-      return new Response(
-        JSON.stringify({ error: "Dados incompletos" }),
-        { status: 400 }
-      );
-    }
+  const { data: pedido } = await supabase.from("pedidos").select("cliente_id").eq("id", pedidoId).single();
+  if (!pedido) return new Response("Pedido não encontrado", { status: 404 });
 
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${Deno.env.get("RESEND_API_KEY")}`
-      },
-      body: JSON.stringify({
-        from: "sua-loja@seudominio.com",
-        to: email,
-        subject: "Confirmação de Pagamento",
-        html: `
-          <p>Olá ${nome || "Cliente"},</p>
-          <p>Seu pagamento do pedido #${pedido_id} no valor de R$${valor} foi aprovado!</p>
-          <p>Obrigado pela sua compra.</p>
-        `
-      })
-    });
+  const { data: cliente } = await supabase.from("clientes").select("nome,email").eq("id", pedido.cliente_id).single();
+  if (!cliente) return new Response("Cliente não encontrado", { status: 404 });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "suporte@seusite.com",
+      to: cliente.email,
+      subject: `Pedido #${pedidoId} confirmado!`,
+      html: `<h1>Olá ${cliente.nome}!</h1><p>Seu pedido #${pedidoId} foi confirmado e pago com sucesso.</p>`
+    }),
+  });
 
-    return new Response(
-      JSON.stringify({ status: "Email enviado com sucesso!" }),
-      { status: 200 }
-    );
-
-  } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      { status: 500 }
-    );
-  }
+  return new Response(JSON.stringify({ status: "ok" }), { status: 200 });
 });
