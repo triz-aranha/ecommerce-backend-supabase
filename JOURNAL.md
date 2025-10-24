@@ -27,3 +27,12 @@
 - Gerar a migration com o comando: npx supabase migration new create_pedidos_table 
 - Adicionar o sql no arquivo da migration
 - Salvar e então executar o comando: npx supabase db push
+
+
+### como estou testando o fluxo
+
+1- cadastro um cliente com email.
+2- crio um pedido com meu cliente.
+3- atrelo produto ao pedido relacionando ao id do pedido.
+4- aprovo o pagamento manualmente.
+5- produtos aparecem nas views somente com status do pedido como pago.
