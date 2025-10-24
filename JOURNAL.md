@@ -20,6 +20,7 @@
 - Ao Criar as tabelas no migrations, coloquei o comando If no exists, para que crie uma tabela somente se ela já não existir.
 - Criar tabelas na sequencia, para não ter erros devido as primary keys: clientes, produtos e pedidos. 
 - Para as funções também utilizarei o migrations para implementá-las.
+- calcular o total por item do pedido
 
 ### Para criar tabelas:
 

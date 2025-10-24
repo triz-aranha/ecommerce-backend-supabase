@@ -13,9 +13,3 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
--- Trigger para chamar a função ao alterar itens
-CREATE TRIGGER trigger_atualizar_total
-AFTER INSERT OR UPDATE OR DELETE ON itens_pedido
-FOR EACH ROW
-EXECUTE FUNCTION atualizar_total_pedido();
