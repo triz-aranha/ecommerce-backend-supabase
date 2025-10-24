@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "supabase": "^2.53.6"
+  },
+  "dependencies": {
+    "resend": "^6.2.2"
   }
 }
