@@ -108,8 +108,8 @@ Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco 
 ### 🌐 Edge Functions (Deno)
 
 #### ✅ Função `enviar-email-direto`
-- **Localização**: `s/functions/envia_email_direto`
-- **Trigger**: `feito via Webhook integrado so Supabase`
+- **Localização**: `/functions/envia_email_direto`
+- **Trigger**: `Feito via Webhook integrado ao Supabase, quando um pedido, na tabela pedidos atualiza o status como pago ele envia o email para o email do cliente atrelado ao pedido`
 - **Variáveis necessárias**:
   - `RESEND_API_KEY`
   - `SUPABASE_URL`
@@ -119,6 +119,14 @@ Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco 
 
 ### Pré-requisitos
 - Aceitar convite do Supabase Web.
+
+## Testando o fluxo
+
+- Insira um cliente na tabela clientes com um email válido.
+- Insira um pedido na tabela pedidos atrelado com o cliente_id.
+- Insira produtos através da tabela itens_produtos, atrelando ao pedido_id.
+- Na tabela pagamento, mude o status para "aprovado"
+- O status do pedido muda para "pago" automaticamente na tabela pedidos e um email de confirmação será enviado.
 
 ### Avisos
 - O banco e todas suas funcionalidades estão disponibilizadas por lá, via CLI realizei somente a criação das tabelas e do RLS, as funções e webHooks, foram feitas diretamente pela Web.
