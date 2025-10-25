@@ -286,7 +286,7 @@ enabled = false
 # Use Firebase Auth as a third-party provider alongside Supabase Auth.
 [auth.third_party.firebase]
 enabled = false
-# project_id = "my-firebase-project"
+project_id = "ifqwmsdtzgbgmyrrnpuy"
 
 # Use Auth0 as a third-party provider alongside Supabase Auth.
 [auth.third_party.auth0]
@@ -348,13 +348,13 @@ s3_access_key = "env(S3_ACCESS_KEY)"
 # Configures AWS_SECRET_ACCESS_KEY for S3 bucket
 s3_secret_key = "env(S3_SECRET_KEY)"
 
-[functions.enviar-email-pagamento]
+[functions.envia-email]
 enabled = true
 verify_jwt = true
-import_map = "./functions/enviar-email-pagamento/deno.json"
+import_map = "./functions/envia-email/deno.json"
 # Uncomment to specify a custom file path to the entrypoint.
 # Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
-entrypoint = "./functions/enviar-email-pagamento/index.ts"
+entrypoint = "./functions/envia-email/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
-# static_files = [ "./functions/enviar-email-pagamento/*.html" ]
+# static_files = [ "./functions/envia-email/*.html" ]

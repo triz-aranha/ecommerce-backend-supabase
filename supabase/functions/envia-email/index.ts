@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.203.0/http/server.ts";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const FROM_EMAIL = "Acme <onboarding@resend.dev>";
+const FROM_EMAIL = "Suporte <suporte@trizaranha.com.br>";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 serve(async (req)=>{
