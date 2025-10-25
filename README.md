@@ -107,9 +107,9 @@ Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco 
 
 ### 🌐 Edge Functions (Deno)
 
-#### ✅ Função `enviar-email-pagamento`
-- **Localização**: `supabase/functions/enviar-email-pagamento/index.ts`
-- **Trigger**: `20251024191039_trigger_envia_email.sql`
+#### ✅ Função `enviar-email-direto`
+- **Localização**: `s/functions/envia_email_direto`
+- **Trigger**: `feito via Webhook integrado so Supabase`
 - **Variáveis necessárias**:
   - `RESEND_API_KEY`
   - `SUPABASE_URL`
@@ -118,71 +118,13 @@ Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco 
 ## 🚀 Como Executar
 
 ### Pré-requisitos
-- Node.js
-- Supabase CLI
-- Deno (para Edge Functions)
+- Aceitar convite do Supabase Web.
 
-### Comandos Principais
+### Avisos
+- O banco e todas suas funcionalidades estão disponibilizadas por lá, via CLI realizei somente a criação das tabelas e do RLS, as funções e webHooks, foram feitas diretamente pela Web.
 
-1. **Iniciar Supabase localmente**:
-   ```bash
-   npx supabase start
-   ```
-
-2. **Aplicar migrations**:
-   ```bash
-   npx supabase db push
-   ```
-
-3. **Executar Edge Function localmente**:
-   ```bash
-   npx supabase functions serve enviar-email-pagamento
-   ```
-
-4. **Testar envio de email**:
-   ```bash
-   curl -X POST "http://localhost:54321/functions/v1/enviar-email-pagamento" \
-        -H "Content-Type: application/json" \
-        -d '{"pedidoId": 123}'
-   ```
-
-## 📝 Itens Pendentes do Checklist
-
-1. **Views**:
-   - [ ] Criar view `pedidos_detalhados` com:
-     ```sql
-     CREATE VIEW pedidos_detalhados AS
-     SELECT
-       p.id AS pedido_id,
-       c.nome AS cliente,
-       pr.nome AS produto,
-       i.quantidade,
-       i.preco_unitario,
-       (i.quantidade * i.preco_unitario) AS subtotal,
-       p.total,
-       p.status,
-       pg.status AS status_pagamento
-     FROM pedidos p
-     JOIN clientes c ON p.cliente_id = c.id
-     JOIN itens_pedido i ON i.pedido_id = p.id
-     JOIN produtos pr ON pr.id = i.produto_id
-     LEFT JOIN pagamentos pg ON pg.pedido_id = p.id;
-     ```
-
-2. **Edge Functions**:
-   - [ ] Implementar `export_pedidos_csv`
-
-3. **Performance**:
-   - [ ] Adicionar índices em chaves estrangeiras:
-     - `cliente_id` em `pedidos`
-     - `pedido_id` em `itens_pedido`
-     - `produto_id` em `itens_pedido`
-
-4. **Triggers**:
-   - [ ] Sincronizar `pagamentos.valor` com mudanças em `pedidos.total`
-
+### 
 ## 📚 Documentação Adicional
 
 Para mais detalhes sobre o desenvolvimento e decisões técnicas, consulte:
 - `JOURNAL.md`: Histórico de desenvolvimento e decisões
-- `supabase/config.toml`: Configurações do projeto
