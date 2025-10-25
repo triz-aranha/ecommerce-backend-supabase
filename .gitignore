@@ -1,3 +1,21 @@
-node_modules/
+# Supabase
+.branches
+.temp
+supabase/.branches/
+supabase/.temp/
+
+
+# dotenvx
 .env
-.vscode/
+.env.keys
+.env.local
+.env.*.local
+*.key
+
+# Supabase local
+
+
+# Logs e caches
+node_modules/
+*.log
+.DS_Store
