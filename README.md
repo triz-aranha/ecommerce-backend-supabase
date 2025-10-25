@@ -2,6 +2,29 @@
 
 Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco de dados e Edge Functions (Deno) para processamento serverless.
 
+## 🚀 Como Executar
+
+### Pré-requisitos
+- Aceitar convite do Supabase Web.
+
+## Testando o fluxo
+
+- Insira um cliente na tabela clientes com um email válido.
+- Insira um pedido manualmente na tabela pedidos atrelado com o cliente_id, coloque somente o ID, o restante é preenchido automaticamente;
+- Insira produtos através da tabela itens_pedido, preencha os campos id_pedido, id_produto e quantidade, o restante é feito automaticamente.
+- Na tabela pagamento, mude o status para "aprovado", note que o total do pedido tambem é calculado automaticamente tanto na tabela pedido quanto na tabela pagamento.
+- O status do pedido muda para "pago" automaticamente na tabela pedidos e um email de confirmação será enviado.
+
+### Avisos
+- O banco e todas suas funcionalidades estão disponibilizadas por lá, via CLI realizei somente a criação das tabelas e do RLS, as funções e webHooks, foram feitas diretamente pela Web.
+
+### 
+## 📚 Documentação Adicional
+
+Para mais detalhes sobre o desenvolvimento e decisões técnicas, consulte:
+- `JOURNAL.md`: Histórico de desenvolvimento e decisões
+
+
 ## ✅ Checklist de Implementação
 
 ### 🧩 1. Estrutura do Banco de Dados
@@ -115,24 +138,3 @@ Backend de e-commerce desenvolvido com Supabase, usando PostgreSQL para o banco 
   - `SUPABASE_URL`
   - `SUPABASE_SERVICE_ROLE_KEY`
 
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Aceitar convite do Supabase Web.
-
-## Testando o fluxo
-
-- Insira um cliente na tabela clientes com um email válido.
-- Insira um pedido na tabela pedidos atrelado com o cliente_id.
-- Insira produtos através da tabela itens_produtos, atrelando ao pedido_id.
-- Na tabela pagamento, mude o status para "aprovado"
-- O status do pedido muda para "pago" automaticamente na tabela pedidos e um email de confirmação será enviado.
-
-### Avisos
-- O banco e todas suas funcionalidades estão disponibilizadas por lá, via CLI realizei somente a criação das tabelas e do RLS, as funções e webHooks, foram feitas diretamente pela Web.
-
-### 
-## 📚 Documentação Adicional
-
-Para mais detalhes sobre o desenvolvimento e decisões técnicas, consulte:
-- `JOURNAL.md`: Histórico de desenvolvimento e decisões
